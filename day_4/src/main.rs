@@ -10,12 +10,12 @@ struct Elf {
 }
 
 fn main() {
-    let (part_one, part_two) = part_one(FILE_PATH);
+    let (part_one, part_two) = i_hate_elves(FILE_PATH);
     println!("PART ONE: {}", part_one);
     println!("PART TWO: {}", part_two);
 }
 
-fn part_one(file_path: &str) -> (u32, u32) {
+fn i_hate_elves(file_path: &str) -> (u32, u32) {
     let file = File::open(file_path).expect("FILE PATH ERROR");
     let lines = io::BufReader::new(file).lines();
 
@@ -76,17 +76,17 @@ fn part_one(file_path: &str) -> (u32, u32) {
 
 #[cfg(test)]
 mod tests {
-    use crate::part_one;
+    use crate::i_hate_elves;
     const TEST_PATH: &str = "./test.txt";
     const TEST_TWO_PATH: &str = "./test_two.txt";
 
     #[test]
     fn test_file() {
-        assert_eq!(part_one(TEST_PATH).0, 2);
+        assert_eq!(i_hate_elves(TEST_PATH).0, 2);
     }
 
     #[test]
     fn test_two_file() {
-        assert_eq!(part_one(TEST_TWO_PATH).1, 4);
+        assert_eq!(i_hate_elves(TEST_TWO_PATH).1, 4);
     }
 }
