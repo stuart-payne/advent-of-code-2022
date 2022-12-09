@@ -44,7 +44,6 @@ fn part_one(file_input: &str) -> String {
         for (character, position) in positions.iter() {
             let val =  *chars.get(*position).expect("FAILED INITING BOXES");
             if val.is_alphabetic() {
-                println!("{}", val);
                 stacks
                     .get_mut(character)
                     .expect("FAILED STACK LOOKUP")
@@ -65,10 +64,8 @@ fn part_one(file_input: &str) -> String {
             .expect("not a digit bruv");
         let from = hmm.nth(1).expect("oh ffs");
         let to = hmm.nth(1).expect("dear lord this is cursed");
-        // println!("amount: {}, from: {}, to: {}", amount, from, to);
 
         for _ in 0..amount {
-            // println!("sdfjlksfjklsdjl");
             let box_thing = stacks
                 .get_mut(&from.chars().next().expect("dumb hack"))
                 .expect("stacks lookup failed")
