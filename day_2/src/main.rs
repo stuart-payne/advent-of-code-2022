@@ -22,7 +22,7 @@ fn main() {
         ("X".to_string(), 0),
         ("Y".to_string(), 1),
         ("Z".to_string(), 2),
-    ]);
+    ]).;
 
     let game_scores: HashMap<String, u32> = HashMap::from([
         ("X".to_string(), 1),
