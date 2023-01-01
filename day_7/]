@@ -1,0 +1,74 @@
+use std::{
+    collections::{HashMap, VecDeque},
+    fs::File,
+    io::{BufRead, BufReader},
+};
+
+struct Directory {
+    children: Vec<String>,
+    size: u32,
+}
+
+const INPUT_PATH: &str = "input.txt";
+
+fn main() {
+    println!("Hello, world!");
+}
+
+fn part_one() -> u32 {
+    let mut file = File::open(INPUT_PATH).expect("file open failed");
+    let mut lines = BufReader::new(file).lines().map(|l| l.expect("(:"));
+        let mut directories: HashMap<String, Directory> = HashMap::new();
+        let mut cwd: VecDeque<&str> = VecDeque::new();
+
+    for line in lines {
+
+        if line.starts_with("$ cd") {
+            let segments = line.split(' ').collect::<Vec<&str>>();
+            let cmd = segments.iter().nth(segments.len() - 1).expect("nth failed");
+            match *cmd {
+                ".." => {
+                    cwd.pop_back();
+                }
+                "/" => {
+                    cwd.clear();
+                }
+                _ => {
+                    cwd.push_back(cmd);
+                }
+            };
+        } else if line.starts_with("dir") {
+            let segments: Vec<&str> = line.split(' ').collect();
+            let dir_name = segments
+                .iter()
+                .nth(segments.len() - 1)
+                .expect("dir name fail");
+            if !directories.contains_key(&dir_name.to_string()) {
+                directories.insert(
+                    dir_name.to_string(),
+                    Directory {
+                        children: Vec::new(),
+                        size: 0,
+                    },
+                );
+                directories
+                    .get(&cwd.back().expect("peek at cwd failed").to_string())
+                    .expect("current dir fail")
+                    .children
+                    .push(dir_name.to_string());
+            } else {
+            }
+        }
+    }
+    32
+}
+
+#[cfg(test)]
+mod test {
+    use crate::part_one;
+
+    #[test]
+    fn part_one_test() {
+        assert_eq!(part_one(), 95437);
+    }
+}
